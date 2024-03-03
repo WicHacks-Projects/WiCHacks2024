@@ -22,6 +22,8 @@ def calc_angle(a, b, c):  # 3D points
     theta = 180 - 180 * theta / 3.14  # Convert radians to degrees
     return np.round(theta, 2)
 
+window_width = 900
+window_height = 700
 
 def infer():
     mp_drawing = mp.solutions.drawing_utils  # Connecting Keypoints Visuals
@@ -41,9 +43,10 @@ def infer():
     while cap.isOpened():
         _, frame = cap.read()
         frame = cv2.flip(frame, 1)
+        resized_frame = cv2.resize(frame, (window_width, window_height))
 
         # BGR to RGB
-        image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)  # Convert BGR frame to RGB
+        image = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2RGB)  # Convert BGR frame to RGB
         image.flags.writeable = False
 
         # Make Detections
@@ -96,11 +99,17 @@ def infer():
                 left_flag = 'up'
 
             if right_angle < 160 and left_angle < 160:
-                cv2.putText(image, "straighten out left and right arm", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+                message = "straighten out left and right arm"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
             elif left_angle < 160:
-                cv2.putText(image, "straighten out right arm", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                message = "straighten out right arm"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
             elif right_angle < 160:
-                cv2.putText(image, "straighten out left arm", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                message = "straighten out left arm"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
             if right_angle > 160 and right_raise_angle < 30:
                 right_flag = 'down'
             if right_angle > 160 and right_raise_angle > 80 and right_flag == 'down':
@@ -108,8 +117,10 @@ def infer():
                 right_flag = 'up'
 
             if left_count != prev_left_count or right_count != prev_right_count:
+                message = "great job!"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                 line_color = (0, 255, 0)  # Change line color to green
-                cv2.putText(image, "great job!", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
                 green_time_start = time.time()  # Start the green timer
             elif time.time() - green_time_start > green_duration:
                 line_color = (0, 0, 255)  # Change line color back to red if green duration elapsed
@@ -122,15 +133,18 @@ def infer():
 
         # Setup Status Box
         cv2.rectangle(image, (0, 0), (1024, 73), (10, 10, 10), -1)
-        cv2.putText(image, 'Left=' + str(left_count) + '    Right=' + str(right_count),
+        cv2.putText(image, 'Left=' + str(left_count) + '           Right=' + str(right_count),
                     (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv2.LINE_AA)
-
+        
         # Render Detections
-        mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS,
-                                   landmark_drawing_spec=mp_drawing.DrawingSpec(color=line_color, thickness=2,
-                                                                                   circle_radius=2))
-
-        cv2.imshow('MediaPipe feed', image)
+        mp_drawing.draw_landmarks(
+            image,
+            results.pose_landmarks,
+            mp_pose.POSE_CONNECTIONS,
+            landmark_drawing_spec=mp_drawing.DrawingSpec(color=line_color, thickness=2, circle_radius=0),
+            connection_drawing_spec=mp_drawing.DrawingSpec(color=line_color, thickness=2)
+        )
+        cv2.imshow('MAGIC', image)
 
         k = cv2.waitKey(30) & 0xff  # Esc for quiting the app
         if k == 27:
