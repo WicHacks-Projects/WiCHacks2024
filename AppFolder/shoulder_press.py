@@ -27,7 +27,7 @@ def calc_angle(a, b, c):  # 3D points
     return np.round(theta, 2)
 
 
-def infer():
+def press():
     mp_drawing = mp.solutions.drawing_utils  # Connecting Keypoints Visuals
     mp_pose = mp.solutions.pose  # Keypoint detection model
     left_flag = None  # Flag which stores hand position(Either UP or DOWN)

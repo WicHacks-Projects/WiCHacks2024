@@ -27,7 +27,7 @@ def calc_angle(a, b, c):  # 3D points
 window_width = 900
 window_height = 700
 
-def infer():
+def lift():
     mp_drawing = mp.solutions.drawing_utils  # Connecting Keypoints Visuals
     mp_pose = mp.solutions.pose  # Keypoint detection model
     left_flag = None  # Flag which stores hand position(Either UP or DOWN)
@@ -141,6 +141,7 @@ def infer():
 
     cap.release()
     cv2.destroyAllWindows()
+    return left_count, right_count
 
 
 if __name__ == '__main__':

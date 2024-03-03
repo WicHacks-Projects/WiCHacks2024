@@ -1,12 +1,24 @@
 from flask import Flask, render_template, send_file, Response, Blueprint, redirect, url_for
 import subprocess
+import pymongo
 from bicep_curls import infer
+from lateral_lifts import lift
+from shoulder_press import press
 
 app = Flask(__name__)
 
 about_blueprint = Blueprint('about', __name__)
 resources_blueprint = Blueprint('resources', __name__)
 menst_blueprint = Blueprint('menst', __name__)
+
+try:
+    client = pymongo.MongoClient("mongodb+srv://wichacks24:Sw3d5QDVQLncHcSR@empowher.qo6k2bq.mongodb.net/?retryWrites=true&w=majority&appName=empowher")
+except pymongo.error.ConfigurationError:
+    print('db connection error')
+
+
+db = client.empowher
+
 
 
 @app.route('/')
@@ -35,13 +47,14 @@ def video_feed():
 
 @app.route('/lateral_lifts')
 def lateral():
-    infer()
-    # Redirect back to the home page after the function completes
+    lift()
     return redirect(url_for('index'))
+
+    # Redirect back to the home page after the function completes
 
 @app.route('/shoulder')
 def shoulder():
-    infer()
+    press()
     # Redirect back to the home page after the function completes
     return redirect(url_for('index'))
 
