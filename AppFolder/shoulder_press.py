@@ -8,6 +8,8 @@ import time
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 
+window_width = 900
+window_height = 700
 
 # Calculate the angle between 3 Points
 def calc_angle(a, b, c):  # 3D points
@@ -22,8 +24,6 @@ def calc_angle(a, b, c):  # 3D points
     theta = 180 - 180 * theta / 3.14  # Convert radians to degrees
     return np.round(theta, 2)
 
-window_width = 900
-window_height = 700
 
 def infer():
     mp_drawing = mp.solutions.drawing_utils  # Connecting Keypoints Visuals
@@ -65,62 +65,54 @@ def infer():
             right_shoulder = landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER]
             right_elbow = landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW]
             right_wrist = landmarks[mp_pose.PoseLandmark.RIGHT_WRIST]
-            right_hip = landmarks[mp_pose.PoseLandmark.RIGHT_HIP]
             left_hip = landmarks[mp_pose.PoseLandmark.LEFT_HIP]
+            right_hip = landmarks[mp_pose.PoseLandmark.RIGHT_HIP]
 
             # Calculate angle
             left_angle = calc_angle(left_shoulder, left_elbow, left_wrist)  # Get angle
             right_angle = calc_angle(right_shoulder, right_elbow, right_wrist)
-            left_raise_angle = calc_angle(left_elbow, left_shoulder, left_hip)
-            right_raise_angle = calc_angle(right_elbow, right_shoulder, right_hip)
+            left_bicep_angle = calc_angle(left_hip, left_shoulder, left_elbow)
+            right_bicep_angle = calc_angle(right_hip, right_shoulder, right_elbow)
 
-            # cv2.putText(image,\
-            #         str(left_raise_angle), \
-            #             tuple(np.multiply([left_shoulder.x, left_shoulder.y], [640,480]).astype(int)),\
-            #                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255),2,cv2.LINE_AA)
-            # cv2.putText(image,\
-            #         str(left_angle), \
-            #             tuple(np.multiply([left_elbow.x, left_elbow.y], [640,480]).astype(int)),\
-            #                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255),2,cv2.LINE_AA)
-            # cv2.putText(image,\
-            #         str(right_raise_angle), \
-            #             tuple(np.multiply([right_shoulder.x, right_shoulder.y], [640,480]).astype(int)),\
-            #                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255),2,cv2.LINE_AA)
-            # cv2.putText(image,\
-            #         str(right_angle), \
-            #             tuple(np.multiply([right_elbow.x, right_elbow.y], [640,480]).astype(int)),\
-            #                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255),2,cv2.LINE_AA)
-            
+            if right_bicep_angle < 80 and left_bicep_angle < 80:
+                message = "keep both elbows parallel to the ground"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+            elif left_bicep_angle < 70:
+                message = "keep right elbow parallel to the ground"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+            elif right_bicep_angle < 70:
+                message = "keep left elbow parallel to the ground"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)               
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+            elif right_angle < 60 or right_angle > 190:
+                message = "keep left elbow bent 90 degrees"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)                               
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+            elif left_angle < 60 or left_angle > 190:
+                message = "keep right elbow bent 90 degrees"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)                                               
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+                
             # Counter
-            if left_angle > 160 and left_raise_angle < 30:
+            if left_angle >= 60 and left_angle <= 100 and left_bicep_angle > 90:
                 left_flag = 'down'
-            if left_angle > 160 and left_raise_angle > 80 and left_flag == 'down':
+            if left_angle > 160 and left_bicep_angle > 160 and left_flag == 'down':
                 right_count += 1
                 left_flag = 'up'
 
-            if right_angle < 160 and left_angle < 160:
-                message = "straighten out left and right arm"
-                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
-            elif left_angle < 160:
-                message = "straighten out right arm"
-                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-            elif right_angle < 160:
-                message = "straighten out left arm"
-                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
-                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
-            if right_angle > 160 and right_raise_angle < 30:
+            if right_angle >= 60 and right_angle <= 100 and right_bicep_angle > 90:
                 right_flag = 'down'
-            if right_angle > 160 and right_raise_angle > 80 and right_flag == 'down':
+            if right_angle > 160 and right_bicep_angle > 160 and right_flag == 'down':
                 left_count += 1
                 right_flag = 'up'
 
             if left_count != prev_left_count or right_count != prev_right_count:
+                line_color = (0, 255, 0)  # Change line color to green
                 message = "great job!"
                 cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
                 cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-                line_color = (0, 255, 0)  # Change line color to green
                 green_time_start = time.time()  # Start the green timer
             elif time.time() - green_time_start > green_duration:
                 line_color = (0, 0, 255)  # Change line color back to red if green duration elapsed
@@ -133,18 +125,15 @@ def infer():
 
         # Setup Status Box
         cv2.rectangle(image, (0, 0), (1024, 73), (10, 10, 10), -1)
-        cv2.putText(image, 'Left=' + str(left_count) + '           Right=' + str(right_count),
+        cv2.putText(image, 'Left=' + str(left_count) + '  Right=' + str(right_count),
                     (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv2.LINE_AA)
-        
+
         # Render Detections
-        mp_drawing.draw_landmarks(
-            image,
-            results.pose_landmarks,
-            mp_pose.POSE_CONNECTIONS,
-            landmark_drawing_spec=mp_drawing.DrawingSpec(color=line_color, thickness=2, circle_radius=0),
-            connection_drawing_spec=mp_drawing.DrawingSpec(color=line_color, thickness=2)
-        )
-        cv2.imshow('Lateral Lifts', image)
+        mp_drawing.draw_landmarks(image, results.pose_landmarks, mp_pose.POSE_CONNECTIONS,
+                                   landmark_drawing_spec=mp_drawing.DrawingSpec(color=line_color, thickness=2,
+                                                                                   circle_radius=2))
+
+        cv2.imshow('Shoulder Presses', image)
 
         k = cv2.waitKey(30) & 0xff  # Esc for quiting the app
         if k == 27:

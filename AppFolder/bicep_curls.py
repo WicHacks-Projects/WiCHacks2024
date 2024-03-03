@@ -126,7 +126,7 @@ def infer():
                                    landmark_drawing_spec=mp_drawing.DrawingSpec(color=line_color, thickness=2,
                                                                                    circle_radius=2))
 
-        cv2.imshow('MAGIC', image)
+        cv2.imshow('Bicep Curls', image)
 
         k = cv2.waitKey(30) & 0xff  # Esc for quiting the app
         if k == 27:
