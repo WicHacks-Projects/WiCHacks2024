@@ -1,0 +1,15 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+.container2 {
+    height: 100%; /* Adjust the height to make the page scrollable */
+    background-image: url('scroll.png');
+    background-size: contain;
+    background-repeat: repeat; /* Make the background image repeat */
+    background-position: top;
+   
+}

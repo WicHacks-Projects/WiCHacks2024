@@ -1,51 +1,66 @@
+/* body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2e6ff; /* pastel purple background color }*/
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f6f6f6;
+    font-family: Arial, sans-serif;
+    background-image: url('background.jpg');
+    background-size: cover; /* Cover the entire viewport */
+    background-position: top; /* Center the background image */
 }
 
-header {
-    background-color: #ffb6c1; /* Pastel pink */
-    color: #fff;
-    text-align: center;
-    padding: 20px 0;
-}
 
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-}
-
-nav ul li {
-    display: inline;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: #333;
-    padding: 10px;
-    background-color: #f0e68c; /* Pastel yellow */
-    border-radius: 5px;
-}
-
-nav ul li a:hover {
-    background-color: #add8e6; /* Pastel blue */
-}
-
-section {
-    padding: 20px;
-    text-align: center;
-}
-
-footer {
-    background-color: #ffb6c1; /* Pastel pink */
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
+.container {
     width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 100px; /* Adjust this value to center vertically */
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif; /* Apply a nice font */
+    font-size: 5em; /* Adjust the font size */
+    color: #333; /* Text color */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Add a faint shadow */
+}
+.options {
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center the items horizontally */
+    margin-top: 100px;
+}
+
+.option {
+    border: 4px solid rgb(142, 105, 126);
+    width: 10%; /* Adjust this value for option width */
+    padding: 100px;
+    background-color: #f9cee4; /* Lighter shade of purple */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    margin-left: 30px; /* Adjust as needed */
+}
+
+.option:hover {
+    background-color: #f5eaf1; /* Darker shade of purple on hover */
+    color: rgb(10, 0, 0);
+}
+
+
+.about-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.about-link a {
+    color: #6a0dad; /* Purple text color */
+    text-decoration: none; /* Remove underline from the link */
+}
+
+.about-link a:hover {
+    text-decoration: underline; /* Add underline on hover */
 }
