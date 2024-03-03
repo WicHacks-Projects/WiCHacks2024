@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastel Purple Website</title>
+    <title>Empower Her - Home</title>
     <link rel="stylesheet" href="static/css/index.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -16,7 +16,7 @@
     .option {
         border: 4px solid rgb(142, 105, 126);
         width: 17.5%; /* Adjust this value for option width */
-        background-color: #f9cee4; /* Lighter shade of purple */
+        background-color: #d99ca2; /* Lighter shade of purple */
         border-radius: 10px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         cursor: pointer;
@@ -28,7 +28,7 @@
     }
 
     .option:hover {
-        background-color: #f5eaf1; /* Darker shade of purple on hover */
+        background-color: #dcb0b4; /* Darker shade of purple on hover */
         color: rgb(10, 0, 0);   
     }
      </style>
@@ -38,23 +38,30 @@
 <body>
     <div class="container">
 <div class = "image-logo"></div>
-<nav class="bg-transparent mx-16">
+<nav class="bg-transparent mx-16 font-bold">
     <div class="flex justify-center items-center px-4">
-        <a class="text-xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/">Home</a>
+        <a class="text-3xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/">Home</a>
 
-        <a class="text-xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/about">About</a>
-        <a class="text-xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/resources">Resources</a>
+        <a class="text-3xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/about">About</a>
+
+        <div class="dropdown">
+            <a class="text-3xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/resources">Resources</a>
+            <div class="dropdown-content">
+                <a class="text-2xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/resources">Fitness</a>
+
+                <a class="text-2xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/menst">Menstruation</a>
+
+            </div>
+        </div>
+
     </div>
 </nav>
 
-
-        <div class="options">
-            <div class="option">Bicep Curls1</div>
-            <div class="option">Lateral Raises</div>
-            <div class="option">Squats</div>
+<div class="options">
+            <a href="/bicep_curls" class="option">Bicep Curls</a>
+            <a href="/lateral_lifts" class="option">Lateral Lifts</a>
+            <a href="/shoulder" class="option">Shoulder Press</a>
         </div>
-
-     
 
     </div>
 </body>

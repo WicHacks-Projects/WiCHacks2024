@@ -135,3 +135,17 @@ body, html {
     font-size: 20px;
     color: #6a0dad;
   }
+  .image-logo {
+    width: 700px;
+    height: 300px;
+    background-image: url('logo.png'); /* Replace 'image.jpg' with your image path */   
+
+    background-size: cover;
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Adjust the padding as needed */
+    padding-top: 25px; 
+
+}
