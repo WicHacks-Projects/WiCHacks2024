@@ -33,6 +33,21 @@ def video_feed():
     return redirect(url_for('index'))
 
 
+@app.route('/lateral_lifts')
+def lateral():
+    infer()
+    # Redirect back to the home page after the function completes
+    return redirect(url_for('index'))
+
+@app.route('/shoulder')
+def shoulder():
+    infer()
+    # Redirect back to the home page after the function completes
+    return redirect(url_for('index'))
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

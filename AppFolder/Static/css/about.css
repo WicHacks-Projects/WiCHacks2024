@@ -29,6 +29,21 @@ body, html {
 
 }
 
+.image-infographic {
+    width: 704px;
+    height: 4000px;
+    background-image: url('infographic.png'); /* Replace 'image.jpg' with your image path */   
+    background-size: cover;
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2); /* Adjust the values as needed */
+    /* /* Add border radius for rounded corners */
+    /* Adjust the padding as needed */
+    padding: 10px;
+
+}
+
 
 body {
     margin: 0;
