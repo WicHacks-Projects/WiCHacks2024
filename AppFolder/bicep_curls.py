@@ -34,7 +34,7 @@ def infer():
     prev_left_count = 0
     prev_right_count = 0
     green_time_start = 0
-    green_duration = 2  # Duration in seconds for line color to stay green
+    green_duration = 1  # Duration in seconds for line color to stay green
 
     cap = cv2.VideoCapture(0)
     pose = mp_pose.Pose(min_detection_confidence=0.7, min_tracking_confidence=0.5)  # Lnadmark detection model instance
@@ -62,22 +62,33 @@ def infer():
             right_shoulder = landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER]
             right_elbow = landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW]
             right_wrist = landmarks[mp_pose.PoseLandmark.RIGHT_WRIST]
+            left_hip = landmarks[mp_pose.PoseLandmark.LEFT_HIP]
+            right_hip = landmarks[mp_pose.PoseLandmark.RIGHT_HIP]
 
             # Calculate angle
             left_angle = calc_angle(left_shoulder, left_elbow, left_wrist)  # Get angle
             right_angle = calc_angle(right_shoulder, right_elbow, right_wrist)
+            left_bicep_angle = calc_angle(left_hip, left_shoulder, left_elbow)
+            right_bicep_angle = calc_angle(right_hip, right_shoulder, right_elbow)
 
+            if right_bicep_angle > 30 and left_bicep_angle > 30:
+                cv2.putText(image, "keep left and right elbow low", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+            elif left_bicep_angle > 30:
+                cv2.putText(image, "keep left elbow low", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+            elif right_bicep_angle > 30:
+                cv2.putText(image, "keep right elbow low", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+                    
             # Counter
             if left_angle > 160:
                 left_flag = 'down'
             if left_angle < 50 and left_flag == 'down':
-                left_count += 1
+                right_count += 1
                 left_flag = 'up'
 
             if right_angle > 160:
                 right_flag = 'down'
             if right_angle < 50 and right_flag == 'down':
-                right_count += 1
+                left_count += 1
                 right_flag = 'up'
 
             if left_count != prev_left_count or right_count != prev_right_count:
