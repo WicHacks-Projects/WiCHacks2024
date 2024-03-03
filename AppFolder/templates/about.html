@@ -3,21 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrollable Background with Canvas PNG</title>
     <link rel="stylesheet" href="static/css/about.css">
+
+    <title>Empower HER - About Us</title>
     <style>
         /* Additional styles */
         .container2 {
             height: 2000px; /* Adjust the height to make the page scrollable */
+            background-image: url('../static/css/scroll.png');
+            background-size: contain;
+            background-repeat: repeat; /* Make the background image repeat */
+            background-position: top;
+            margin: 0;/* Adjust the height to make the page scrollable */
         }
+        .text-border {
+            border: 2px solid #333; /* Set the border color and width */
+            padding: 20px; /* Add padding to give some space around the text */
+            border-radius: 10px; /* Add border radius for rounded corners */
+            background-color: #ffd8eb; /* Set background color to white */
+
+        }
+      
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <div class="container2">
-        AAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAAAAAAAAAAAAAA
-      
+
+        <div class= "image-logo"> </div>
+
+        <nav class="bg-transparent mx-16 px-0">
+            <div class="flex justify-center items-center px-4">
+                <a class="text-xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/">Home</a>
+                <a class="text-xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/about">About</a>
+
+                <a class="text-xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/resources">Resources</a>
+            </div>
+        </nav>
+
+
+
+        <div class="flex mx-auto max-w-3xl px-8">
+            <div class="w-full text-border"> <!-- Add the text-border class here -->
+                <h2 class="text-3xl font-bold mb-4">Introducing Empower HER Training</h2>
+                <p class="text-lg text-gray-700 mb-8">A revolutionary platform dedicated to empowering women in their strength training journey. In a world where the gym can often feel daunting and intimidating, particularly for women who have experienced instances of harassment, Empower HER Training provides a safe and supportive environment for all individuals to thrive.</p>
+        
+                <p class="text-lg text-gray-700 mb-8">Our innovative system utilizes live video camera technology coupled with advanced Computer Vision algorithms to track and analyze your movements in real-time. Whether you're mastering bicep curls, lateral lifts, or perfecting your squat form, our intelligent model is there every step of the way, providing personalized feedback and expert tips to ensure you're performing each exercise correctly and safely.</p>
+        
+                <p class="text-lg text-gray-700 mb-8">The need for such a platform is evident, with surveys revealing that a staggering 56% of women have encountered sexual harassment at the gym, leading many to actively avoid public fitness spaces altogether. Recognizing this alarming trend, Empower HER Training aims to bridge the gap by offering a private and inclusive space where women and gender minorities can access essential fitness resources without fear or hesitation.</p>
+        
+                <p class="text-lg text-gray-700 mb-8">Furthermore, our focus on strength training is paramount, as proper form is crucial to preventing injuries and maximizing the benefits of exercise. Empower HER Training empowers you to take control of your fitness journey, providing the tools and support needed to track your progress, set goals, and ultimately achieve your desired results.</p>
+        
+                <p class="text-lg text-gray-700 mb-8">Join us today and experience the power of Empower HER Training - where strength knows no bounds, and every woman can thrive with confidence.</p>
+            </div>
+        </div>
+
+       
+
         <script>
             window.addEventListener('scroll', function() {
                 var scrollPosition = window.scrollY;
@@ -25,7 +67,6 @@
                 container.style.backgroundPositionY = -scrollPosition + 'px';
             });
         </script>
+    </div>
 </body>
-
-
 </html>

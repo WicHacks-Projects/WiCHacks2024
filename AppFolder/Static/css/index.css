@@ -13,13 +13,30 @@ body {
     background-position: top; /* Center the background image */
 }
 
+.image-logo {
+    width: 700px;
+    height: 300px;
+    background-image: url('logo.png'); /* Replace 'image.jpg' with your image path */   
+
+    background-size: cover;
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 10px; /* or padding: 10px 5px; to set different paddings for top/bottom and left/right */
+
+    /* Adjust the padding as needed */
+
+}
+
+
 
 .container {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
-    padding-top: 100px; /* Adjust this value to center vertically */
+    padding-top: 50px; /* Adjust this value to center vertically */
 }
 
 h1 {
@@ -31,7 +48,7 @@ h1 {
 .options {
     display: flex; /* Use flexbox */
     justify-content: center; /* Center the items horizontally */
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 .option {

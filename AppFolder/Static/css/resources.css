@@ -1,0 +1,137 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+.container2 {
+    height: 100%; /* Adjust the height to make the page scrollable */
+    background-image: url('scroll.png');
+    background-size: contain;
+    background-repeat: repeat; /* Make the background image repeat */
+    background-position: top;
+    display: flex;
+    flex-direction: column; /* Display children vertically */
+   
+}
+.header {
+    padding: 30px;
+    text-align: center;
+  }
+
+.header h1{
+    font-family: 'Poppins', sans-serif; /* Apply a nice font */
+    color: #6a0dad;
+    text-align: center;
+    font-size: 50x;
+    margin: 0; /* Remove default margin */
+  }
+  
+  .row {
+    flex: 1; /* Grow to fill available space */
+    display: flex;
+    padding: 20px; /* Add padding to the row */
+}
+
+.leftcolumn {
+    float: left;
+    width:20%;
+    padding-right: 100px; /* Add padding to the row */
+}
+
+.rightcolumn{
+    float: right;
+    width: 90%;
+}
+
+
+  @media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    .topnav a {
+      float: none;
+      width: 100%;
+    }
+  }
+
+/* Style the table of contents */
+
+  /* Style the table of contents links */
+  .tab{
+    padding: left 60px;
+    
+  }
+
+  .tab button {
+    font-family: 'Poppins', sans-serif; /* Apply a nice font */
+    display: block;
+    text-decoration: none;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 15px;
+    font-size: 20px;
+    text-align: left;
+    color: #6a0dad;
+    box-sizing: border-box;
+    width: 100%;
+    color: #6a0dad;
+  }
+
+  .tab a{
+    font-family: 'Poppins', sans-serif; /* Apply a nice font */
+    display: block;
+    text-decoration: none;
+    font-size: 20px;
+    text-align: left;
+    color: #6a0dad;
+    box-sizing: border-box;
+    width: 100%;
+    color: #6a0dad;
+  }
+  .tab h2{
+    font-family: 'Poppins', sans-serif; /* Apply a nice font */
+    padding-top: 15px;
+    padding-left: 13px;
+    padding-right: 13px;
+    text-align: left;
+    color: #6a0dad;
+  }
+
+  /* Change color on hover */
+  .tab a:hover {
+    background-color: #f5eaf1; /* Darker shade of purple on hover */
+    color: rgb(10, 0, 0);
+  }
+
+  /* Change color on hover */
+  .tab button:hover {
+    background-color: #f5eaf1; /* Darker shade of purple on hover */
+    color: rgb(10, 0, 0);
+  }
+  .tabcontent h2{
+    font-family: 'Poppins', sans-serif; /* Apply a nice font */
+    color: #333; /* Text color */
+    text-align: left;
+    font-size: 30px;
+    color: #6a0dad;
+  }
+
+  .tabcontent p{
+    font-family: 'Poppins', sans-serif; /* Apply a nice font */
+    color: #333; /* Text color */
+    font-size: 20px;
+    color: #6a0dad;
+  }
+
+  .tabcontent li{
+    font-family: 'Poppins', sans-serif; /* Apply a nice font */
+    color: #333; /* Text color */
+    font-size: 20px;
+    color: #6a0dad;
+  }

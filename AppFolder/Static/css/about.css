@@ -13,3 +13,69 @@ body, html {
     background-position: top;
    
 }
+
+
+.image-logo {
+    width: 700px;
+    height: 300px;
+    background-image: url('logo.png'); /* Replace 'image.jpg' with your image path */   
+
+    background-size: cover;
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Adjust the padding as needed */
+    padding-top: 25px; 
+
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 24px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #000; /* Adjust the color of your links */
+    margin-left: 20px; /* Adjust the spacing between links */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Add text shadow */
+}
+.nav-links li {
+    display: inline;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #000; /* Adjust the color of your links */
+    margin-left: 20px; /* Adjust the spacing between links */
+}
+
+.content {
+    max-width: 800px;
+    margin: 50px auto;
+    text-align: center;
+}

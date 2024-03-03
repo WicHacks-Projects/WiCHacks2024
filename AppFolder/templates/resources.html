@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources</title>
+    <link rel="stylesheet" href="static/css/resources.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        /* Additional styles */
+        .container2 {
+            height: 2000px; /* Adjust the height to make the page scrollable */
+        }
+    </style>
+</head>
+<body>
+        <div class="container2">
+            <div class="header">
+                <h1>Resources</h1>
+            </div>
+            <div class="row">
+                <nav class="bg-transparent mx-16">
+                    <div class="flex justify-center items-center px-4">
+                        <a class="text-xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/about">About</a>
+                        <a class="text-xl text-orange-950 px-3 py-2 mx-2 hover:text-white hover:bg-orange-950 rounded transition duration-300" href="/resources">Resources</a>
+                        <button class="tablinks" onclick="openTab(event, 'exercises')" id="defaultOpen">At Home Fitness for Women</button>
+                        <button class="tablinks" onclick="openTab(event, 'cycle')">Menstrual Cycle</button>
+                    </div>
+                </nav>
+
+
+                <div class = "leftcolumn">
+                    <div class="tab">
+                        <button class="tablinks" onclick="document.location='/'">Home</a></button>
+                        <button class="tablinks" onclick="document.location='/about'">About Us</a></button>
+                        <button class="tablinks" onclick="openTab(event, 'exercises')" id="defaultOpen">At Home Fitness for Women</button>
+                        <button class="tablinks" onclick="openTab(event, 'cycle')">Menstrual Cycle</button>
+                    </div>
+                </div>
+                <div class = "rightcolumn">
+                    <div id="exercises" class="tabcontent">
+                        <h2>At Home Fitness for Women</h2>
+                        <p><b>Exercise Equipment</b></p>
+                        <ul>
+                            <li>Jump Ropes</li>
+                            <li>Resistance Bands</li>
+                            <li>Yoga Mats</li>
+                            <li>Kettlebells</li>
+                            <li>Foam Rollers</li>
+                            <li>Ab Rollers</li>
+                            <li>Pilates Rings</li>
+                            <li>Medicine Balls</li>
+                            <li>Aqua or Punching Bags</li>
+                            <li>Gliding Discs</li>
+                          </ul> 
+                        <p><b>Home Exercises</b></p>
+                        <ul>
+                            <li>Squats</li>
+                            <li>Lunges</li>
+                            <li>Glute Bridge</li>
+                            <li>Deadlifts</li>
+                            <li>Wall Sits</li>
+                            <li>Pushups</li>
+                            <li>Dips</li>
+                            <li>Planks</li>
+                            <li>Shoulder Taps</li>
+                            <li>Twists</li>
+                            <li>Burpees</li>
+                            <li>Mountain Climbers</li>
+                            <li>Superman Hold</li>
+                        </ul> 
+                    </div>
+                    
+                    <div id="cycle" class="tabcontent">
+                        <h2>Menstrual Cycle</h2>
+                        <ol>
+                            <li><b>Menstruation (Days 1-5):</b></li>
+                            <ul>
+                                <li>During menstruation, women may experience fatigue and discomfort. Light to moderate exercises such as walking, yoga, and stretching can help alleviate cramps and improve mood.</li>
+                                <li>Low-impact activities are generally preferable during this phase.</li>
+                            </ul>
+                            <li><b>Follicular Phase (Days 1-13):</b></li>
+                            <ul>
+                            <li>Estrogen levels gradually rise during this phase, leading to increased energy levels and endurance.</li>
+                            <li>Women may find it beneficial to engage in a variety of aerobic exercises such as jogging, cycling, swimming, and dancing.</li>
+                            <li>Strength training focusing on building lean muscle mass can also be incorporated.</li>
+                            </ul>
+                            <li><b>Ovulation (Around Day 14):</b></li>
+                            <ul>
+                            <li>Ovulation marks the peak of estrogen levels, which can boost energy and strength.</li>
+                            <li>High-intensity interval training (HIIT), circuit training, and intense cardio workouts can be effective during this phase.</li>
+                            <li>Activities that challenge balance and coordination, such as Pilates or martial arts, can also be included.</li>
+                            </ul>
+                            <li><b>Luteal Phase (Days 15-28):</b></li>
+                            <ul>
+                            <li>Progesterone levels rise during the luteal phase, which may lead to increased water retention and fatigue.</li>
+                            <li>Focus on exercises that promote relaxation and reduce stress, such as yoga, tai chi, and gentle stretching.</li>
+                            <li>Moderate-intensity workouts like brisk walking, light jogging, and cycling can help maintain activity levels without overstressing the body.</li>
+                            <li>Incorporating strength training with lighter weights and higher repetitions can be beneficial.</li>
+                            </ul>
+                            <li><b>General Considerations:</b></li>
+                            <ul>
+                            <li>Listen to your body and adjust your exercise routine accordingly. It's important to prioritize rest and recovery when needed.</li>
+                            <li>Stay hydrated and maintain a balanced diet to support energy levels and overall health throughout the menstrual cycle.</li>
+                            <li>Pay attention to any symptoms or changes in your body's response to exercise, and consult with a healthcare professional if you have concerns./li>
+                            </ul>
+                            <p><b>Remember that individual experiences and responses to exercise during the menstrual cycle may vary. It's essential to find activities that you enjoy and that make you feel good physically and mentally. Additionally, consulting with a healthcare provider or a certified fitness professional can provide personalized recommendations based on your specific needs and goals.</b></p>
+                          </ol> 
+                    </div>
+                </div>
+            </div>
+        <script>
+            window.addEventListener('scroll', function() {
+                var scrollPosition = window.scrollY;
+                var container = document.querySelector('.container');
+                container.style.backgroundPositionY = -scrollPosition + 'px';
+            });
+
+            // Get all elements with class="tabcontent" and hide them
+            const tabContents = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and attach click event listeners
+            const tabLinks = document.getElementsByClassName("tablinks");
+            for (let i = 0; i < tabLinks.length; i++) {
+                tabLinks[i].addEventListener("click", function() {
+                const tabName = this.getAttribute("onclick").split("'")[1];
+                openTab(event, tabName);
+                });
+            }
+
+            // Function to open a specific tab by name
+            function openTab(event, tabName) {
+                // Hide all tab contents
+                for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = "none";
+                }
+                // Remove 'active' class from all tab links
+                for (let i = 0; i < tabLinks.length; i++) {
+                tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+                }
+                // Show the specific tab content
+                document.getElementById(tabName).style.display = "block";
+                // Add the 'active' class to the button that opened the tab
+                event.currentTarget.className += " active";
+            }
+
+            // Open the default tab when the page loads
+            document.getElementById("defaultOpen").click();
+        </script>
+    </div>
+</body>
+</html>

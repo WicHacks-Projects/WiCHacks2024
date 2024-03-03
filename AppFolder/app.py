@@ -10,5 +10,9 @@ def index():
 def about():
     return render_template('about.html')
 
+
+@app.route('/resources')
+def resources():
+    return render_template('resources.html')
 if __name__ == '__main__':
     app.run(debug=True)
