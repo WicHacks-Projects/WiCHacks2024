@@ -8,6 +8,8 @@ import time
 mp_pose = mp.solutions.pose
 pose = mp_pose.Pose()
 
+window_width = 900
+window_height = 700
 
 # Calculate the angle between 3 Points
 def calc_angle(a, b, c):  # 3D points
@@ -41,9 +43,10 @@ def infer():
     while cap.isOpened():
         _, frame = cap.read()
         frame = cv2.flip(frame, 1)
+        resized_frame = cv2.resize(frame, (window_width, window_height))
 
         # BGR to RGB
-        image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)  # Convert BGR frame to RGB
+        image = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2RGB)  # Convert BGR frame to RGB
         image.flags.writeable = False
 
         # Make Detections
@@ -72,11 +75,17 @@ def infer():
             right_bicep_angle = calc_angle(right_hip, right_shoulder, right_elbow)
 
             if right_bicep_angle > 30 and left_bicep_angle > 30:
-                cv2.putText(image, "keep left and right elbow low", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+                message = "keep both elbows low in same position"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
             elif left_bicep_angle > 30:
-                cv2.putText(image, "keep left elbow low", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+                message = "keep right elbow low in same position"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)                
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
             elif right_bicep_angle > 30:
-                cv2.putText(image, "keep right elbow low", (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
+                message = "keep left elbow low in same position"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)                
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)   
                     
             # Counter
             if left_angle > 160:
@@ -94,6 +103,10 @@ def infer():
             if left_count != prev_left_count or right_count != prev_right_count:
                 line_color = (0, 255, 0)  # Change line color to green
                 green_time_start = time.time()  # Start the green timer
+                
+                message = "great job!"
+                cv2.rectangle(image, (5, 110), (10 + cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][0] + 10, 100 - cv2.getTextSize(message, cv2.FONT_HERSHEY_SIMPLEX, 1, 2)[0][1] - 10), (255, 255, 255), -1), cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                cv2.putText(image, message, (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
             elif time.time() - green_time_start > green_duration:
                 line_color = (0, 0, 255)  # Change line color back to red if green duration elapsed
 
@@ -105,7 +118,7 @@ def infer():
 
         # Setup Status Box
         cv2.rectangle(image, (0, 0), (1024, 73), (10, 10, 10), -1)
-        cv2.putText(image, 'Left=' + str(left_count) + '    Right=' + str(right_count),
+        cv2.putText(image, 'Left=' + str(left_count) + '  Right=' + str(right_count),
                     (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 255, 255), 2, cv2.LINE_AA)
 
         # Render Detections
@@ -113,7 +126,7 @@ def infer():
                                    landmark_drawing_spec=mp_drawing.DrawingSpec(color=line_color, thickness=2,
                                                                                    circle_radius=2))
 
-        cv2.imshow('MediaPipe feed', image)
+        cv2.imshow('MAGIC', image)
 
         k = cv2.waitKey(30) & 0xff  # Esc for quiting the app
         if k == 27:
